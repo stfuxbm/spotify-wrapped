@@ -1,20 +1,29 @@
 FROM apache/airflow:3.0.0
 
-# Install any additional dependencies if needed
-# For example:
-# USER root
-# RUN apt-get update && apt-get install -y --no-install-recommends \
-#     package1 package2 \
-#     && apt-get autoremove -yqq --purge \
-#     && apt-get clean \
-#     && rm -rf /var/lib/apt/lists/*
-# USER airflow
+# Salin file konfigurasi Airflow
+COPY ./config/airflow.cfg /opt/airflow/config/airflow.cfg
+COPY ./config/.env /opt/airflow/.env
 
-# If you need to install Python dependencies:
-# COPY requirements.txt /requirements.txt
-# RUN pip install --no-cache-dir -r /requirements.txt
+# Salin file DAG, logs, plugins, dan data
+COPY ./dags /opt/airflow/dags/
+COPY ./logs /opt/airflow/logs/
+COPY ./plugins /opt/airflow/plugins/
+COPY ./data /opt/airflow/data/
 
-# Copy airflow.cfg if you have a custom one
-# COPY config/airflow.cfg /opt/airflow/config/airflow.cfg
+# Salin skrip pendukung
+COPY ./scripts /opt/airflow/scripts/
 
+# Salin dan install dependensi
+COPY requirements.txt /opt/airflow/requirements.txt
+RUN pip install --no-cache-dir -r /opt/airflow/requirements.txt
+
+# Memberikan izin baca dan tulis ke grup airflow untuk file .env
+RUN chmod -R 775 /opt/airflow/.env
+
+# Set direktori kerja
 WORKDIR /opt/airflow
+
+# Install package atau plugin lainnya jika diperlukan
+USER root
+RUN chown -R airflow:root /opt/airflow
+USER airflow
