@@ -1,0 +1,20 @@
+FROM apache/airflow:3.0.0
+
+# Install any additional dependencies if needed
+# For example:
+# USER root
+# RUN apt-get update && apt-get install -y --no-install-recommends \
+#     package1 package2 \
+#     && apt-get autoremove -yqq --purge \
+#     && apt-get clean \
+#     && rm -rf /var/lib/apt/lists/*
+# USER airflow
+
+# If you need to install Python dependencies:
+# COPY requirements.txt /requirements.txt
+# RUN pip install --no-cache-dir -r /requirements.txt
+
+# Copy airflow.cfg if you have a custom one
+# COPY config/airflow.cfg /opt/airflow/config/airflow.cfg
+
+WORKDIR /opt/airflow
