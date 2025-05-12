@@ -1,57 +1,77 @@
-# File konfigurasi dan cache Python
-*.pyc
+##########################################
+# Python Bytecode & Cache
+##########################################
+*.py[cod]
 __pycache__/
-*.pyo
-# File log Airflow
-logs/
-# File Docker
-.dockerenv
-.dockerignore
-.env
-!.env.example
-# File sistem
-*.db
-*.sqlite
-# File lainnya
-*.log
-*.lock
-*.pid
-coverage/
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+##########################################
+# Virtual Environment & Build Artifacts
+##########################################
 venv/
 build/
 dist/
-downloads/
-ipynb_checkpoints/
-profiles/
-site/
-.sphinx/
-var/
-EGG-INFO/
+*.egg-info/
+.eggs/
 .installed.cfg
-versioneer.pypath
+*.egg
 pip-selfcheck.json
-# Airflow
+
+##########################################
+# Airflow Specific Files
+##########################################
 airflow.cfg
 airflow.db
 webserver_config.py
 unittests.cfg
-# Cache tools
-.pytest_cache/
-.mypy_cache/
-.coverage
-htmlcov/
-# Data files
-data/*.csv
-data/*.json
-data/*.parquet
-data/*.pickle
+
+##########################################
+# Docker & Environment
+##########################################
+.dockerenv
+.dockerignore
+.env
+
+##########################################
+# Logs & Temporary Files
+##########################################
+*.log
+*.pid
+*.lock
+
+# Airflow logs - keep folder only
+logs/*
+!logs/.gitkeep
+
+# DVC or custom downloads
+downloads/
+
+##########################################
+# Data Files - keep folder only
+##########################################
+data/*
 !data/.gitkeep
-# IDE files
-.idea/
+
+##########################################
+# IDE/Editor Configs
+##########################################
 .vscode/
-*.sublime-project
-*.sublime-workspace
+.idea/
+.DS_Store
+*.sublime-*
 .spyderproject
 .spyproject
 .ropeproject
-.DS_Store
+
+##########################################
+# Miscellaneous
+##########################################
+coverage/
+htmlcov/
+site/
+.sphinx/
+profiles/
+var/
+versioneer.pypath
