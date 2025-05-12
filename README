@@ -1,1 +1,59 @@
-clean dan robust 
+# Spotify Music Genre Tracking
+
+## Project Overview
+This project creates an automated pipeline to track and visualize your Spotify listening habits by genre. The system extracts your recently played tracks from the Spotify API, processes the data to identify artists and their genres, and displays the results in an interactive dashboard.
+
+## Architecture
+The entire solution is containerized using Docker and consists of two main components:
+
+1. **Apache Airflow Pipeline**:
+   - Connects to Spotify API and authenticates via token
+   - Extracts recently played tracks data
+   - Processes data to identify artists and their genres
+   - Stores raw data temporarily in CSV files (staging area)
+   - Transforms and loads the processed data into PostgreSQL database
+
+2. **Streamlit Dashboard**:
+   - Queries PostgreSQL for music genre data
+   - Creates visualizations of daily/weekly genre trends
+   - Provides an interactive user interface to explore listening habits
+
+## Flow Diagram
+```
+Spotify API → Authentication → Data Processing → CSV Storage → 
+PostgreSQL Database → Genre Visualization → Streamlit Dashboard
+```
+
+## Key Components
+
+### Data Pipeline (Apache Airflow)
+- Handles authentication with Spotify API
+- Extracts recently played tracks data
+- Processes and transforms the data
+- Manages data workflow and scheduling
+
+### Storage
+- CSV files serve as a staging area for raw data
+- PostgreSQL database for persistent storage of processed data
+
+### Visualization (Streamlit)
+- Interactive dashboard to explore listening patterns
+- Daily and weekly music genre visualizations
+
+## Getting Started
+1. Ensure Docker is installed on your system
+2. Clone this repository
+3. Configure your Spotify API credentials
+4. Start the Docker containers: `docker-compose up`
+5. Access the Streamlit dashboard at http://localhost:8501
+6. View Airflow at http://localhost:8080 to monitor data pipelines
+
+## Requirements
+- Docker and Docker Compose
+- Spotify Developer Account and API credentials
+- Internet connection for API access
+
+## Future Improvements
+- Add more visualization types
+- Implement machine learning for music recommendation
+- Expand analysis to include more Spotify data points (tempo, energy, etc.)
