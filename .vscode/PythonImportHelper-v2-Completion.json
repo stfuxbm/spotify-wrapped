@@ -1,0 +1,336 @@
+[
+    {
+        "label": "DAG",
+        "importPath": "airflow",
+        "description": "airflow",
+        "isExtraImport": true,
+        "detail": "airflow",
+        "documentation": {}
+    },
+    {
+        "label": "PythonOperator",
+        "importPath": "airflow.operators.python",
+        "description": "airflow.operators.python",
+        "isExtraImport": true,
+        "detail": "airflow.operators.python",
+        "documentation": {}
+    },
+    {
+        "label": "Variable",
+        "importPath": "airflow.models",
+        "description": "airflow.models",
+        "isExtraImport": true,
+        "detail": "airflow.models",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "fetch_top_tracks",
+        "importPath": "scripts.ingestion.ingest_data",
+        "description": "scripts.ingestion.ingest_data",
+        "isExtraImport": true,
+        "detail": "scripts.ingestion.ingest_data",
+        "documentation": {}
+    },
+    {
+        "label": "base64",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "base64",
+        "description": "base64",
+        "detail": "base64",
+        "documentation": {}
+    },
+    {
+        "label": "requests",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "requests",
+        "description": "requests",
+        "detail": "requests",
+        "documentation": {}
+    },
+    {
+        "label": "urllib.parse",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "urllib.parse",
+        "description": "urllib.parse",
+        "detail": "urllib.parse",
+        "documentation": {}
+    },
+    {
+        "label": "webbrowser",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "webbrowser",
+        "description": "webbrowser",
+        "detail": "webbrowser",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "csv",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "csv",
+        "description": "csv",
+        "detail": "csv",
+        "documentation": {}
+    },
+    {
+        "label": "spotipy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "spotipy",
+        "description": "spotipy",
+        "detail": "spotipy",
+        "documentation": {}
+    },
+    {
+        "label": "SpotifyException",
+        "importPath": "spotipy.exceptions",
+        "description": "spotipy.exceptions",
+        "isExtraImport": true,
+        "detail": "spotipy.exceptions",
+        "documentation": {}
+    },
+    {
+        "label": "debug_environment",
+        "kind": 2,
+        "importPath": "dags.spotify_wrapped",
+        "description": "dags.spotify_wrapped",
+        "peekOfCode": "def debug_environment():\n    import os\n    import sys\n    print(f\"Current directory: {os.getcwd()}\")\n    print(f\"Python path: {sys.path}\")\n    print(f\"Environment variables: {dict(os.environ)}\")\n    print(f\"/opt/airflow exists: {os.path.exists('/opt/airflow')}\")\n    print(f\"/opt/airflow/data exists: {os.path.exists('/opt/airflow/data')}\")\n    # Coba akses Airflow variable\n    try:",
+        "detail": "dags.spotify_wrapped",
+        "documentation": {}
+    },
+    {
+        "label": "initialization",
+        "kind": 2,
+        "importPath": "dags.spotify_wrapped",
+        "description": "dags.spotify_wrapped",
+        "peekOfCode": "def initialization():\n    \"\"\"Initialize the environment for data ingestion\"\"\"\n    # Pastikan direktori data ada\n    data_dir = \"/opt/airflow/data\"\n    if not os.path.exists(data_dir):\n        os.makedirs(data_dir, exist_ok=True)\n        print(f\"Created data directory: {data_dir}\")\n    else:\n        print(f\"Data directory already exists: {data_dir}\")\n    # Periksa token Spotify",
+        "detail": "dags.spotify_wrapped",
+        "documentation": {}
+    },
+    {
+        "label": "save_to_staging",
+        "kind": 2,
+        "importPath": "dags.spotify_wrapped",
+        "description": "dags.spotify_wrapped",
+        "peekOfCode": "def save_to_staging(**context):\n    \"\"\"Save the data to staging area\"\"\"\n    # Mendapatkan path file CSV dari task sebelumnya\n    ti = context[\"ti\"]\n    csv_path = ti.xcom_pull(task_ids=\"fetch_top_tracks_task\")\n    if not csv_path:\n        print(\"No CSV file path received from fetch_top_tracks_task\")\n        return {\"status\": \"error\", \"message\": \"No CSV file path\"}\n    print(f\"Received CSV file path: {csv_path}\")\n    # Periksa apakah file CSV ada",
+        "detail": "dags.spotify_wrapped",
+        "documentation": {}
+    },
+    {
+        "label": "default_args",
+        "kind": 5,
+        "importPath": "dags.spotify_wrapped",
+        "description": "dags.spotify_wrapped",
+        "peekOfCode": "default_args = {\n    \"owner\": \"braiyenmassora\",\n    \"start_date\": datetime(2025, 5, 12),\n    \"retries\": 1,\n}\ndag = DAG(\n    \"spotify_wrapped\",\n    default_args=default_args,\n    description=\"Fetch top tracks from Spotify\",\n    schedule_interval=None,",
+        "detail": "dags.spotify_wrapped",
+        "documentation": {}
+    },
+    {
+        "label": "dag",
+        "kind": 5,
+        "importPath": "dags.spotify_wrapped",
+        "description": "dags.spotify_wrapped",
+        "peekOfCode": "dag = DAG(\n    \"spotify_wrapped\",\n    default_args=default_args,\n    description=\"Fetch top tracks from Spotify\",\n    schedule_interval=None,\n    catchup=False,\n)\n# Debug task\ndebug_task = PythonOperator(\n    task_id=\"debug_environment\",",
+        "detail": "dags.spotify_wrapped",
+        "documentation": {}
+    },
+    {
+        "label": "debug_task",
+        "kind": 5,
+        "importPath": "dags.spotify_wrapped",
+        "description": "dags.spotify_wrapped",
+        "peekOfCode": "debug_task = PythonOperator(\n    task_id=\"debug_environment\",\n    python_callable=debug_environment,\n    dag=dag,\n)\n# Initialization task\ninitialization_task = PythonOperator(\n    task_id=\"initialization_task\",\n    python_callable=initialization,\n    dag=dag,",
+        "detail": "dags.spotify_wrapped",
+        "documentation": {}
+    },
+    {
+        "label": "initialization_task",
+        "kind": 5,
+        "importPath": "dags.spotify_wrapped",
+        "description": "dags.spotify_wrapped",
+        "peekOfCode": "initialization_task = PythonOperator(\n    task_id=\"initialization_task\",\n    python_callable=initialization,\n    dag=dag,\n)\n# Fetch task\nfetch_top_tracks_task = PythonOperator(\n    task_id=\"fetch_top_tracks_task\",\n    python_callable=fetch_top_tracks,\n    dag=dag,",
+        "detail": "dags.spotify_wrapped",
+        "documentation": {}
+    },
+    {
+        "label": "fetch_top_tracks_task",
+        "kind": 5,
+        "importPath": "dags.spotify_wrapped",
+        "description": "dags.spotify_wrapped",
+        "peekOfCode": "fetch_top_tracks_task = PythonOperator(\n    task_id=\"fetch_top_tracks_task\",\n    python_callable=fetch_top_tracks,\n    dag=dag,\n)\n# Save to staging task\nsave_to_staging_task = PythonOperator(\n    task_id=\"save_to_staging_task\",\n    python_callable=save_to_staging,\n    provide_context=True,",
+        "detail": "dags.spotify_wrapped",
+        "documentation": {}
+    },
+    {
+        "label": "save_to_staging_task",
+        "kind": 5,
+        "importPath": "dags.spotify_wrapped",
+        "description": "dags.spotify_wrapped",
+        "peekOfCode": "save_to_staging_task = PythonOperator(\n    task_id=\"save_to_staging_task\",\n    python_callable=save_to_staging,\n    provide_context=True,\n    dag=dag,\n)\n# Set task dependencies\ndebug_task >> initialization_task >> fetch_top_tracks_task >> save_to_staging_task",
+        "detail": "dags.spotify_wrapped",
+        "documentation": {}
+    },
+    {
+        "label": "generate_auth_url",
+        "kind": 2,
+        "importPath": "scripts.auth.spotify_auth",
+        "description": "scripts.auth.spotify_auth",
+        "peekOfCode": "def generate_auth_url():\n    \"\"\"\n    Generates the Spotify authorization URL with the required parameters.\n    Returns the URL as a string.\n    \"\"\"\n    params = {\n        \"client_id\": CLIENT_ID,\n        \"response_type\": \"code\",\n        \"redirect_uri\": REDIRECT_URI,\n        \"scope\": SCOPE,",
+        "detail": "scripts.auth.spotify_auth",
+        "documentation": {}
+    },
+    {
+        "label": "get_authorization_code",
+        "kind": 2,
+        "importPath": "scripts.auth.spotify_auth",
+        "description": "scripts.auth.spotify_auth",
+        "peekOfCode": "def get_authorization_code():\n    \"\"\"\n    Directs the user to the authorization URL and asks them to input the authorization code\n    after logging in via their browser.\n    \"\"\"\n    auth_url = generate_auth_url()\n    print(\"Please open the URL in your browser to log in and authorize Spotify access:\")\n    print(auth_url)\n    try:\n        webbrowser.open(auth_url)",
+        "detail": "scripts.auth.spotify_auth",
+        "documentation": {}
+    },
+    {
+        "label": "exchange_code_for_token",
+        "kind": 2,
+        "importPath": "scripts.auth.spotify_auth",
+        "description": "scripts.auth.spotify_auth",
+        "peekOfCode": "def exchange_code_for_token(code):\n    \"\"\"\n    Exchanges the authorization code for an access token and a refresh token from Spotify.\n    Returns the token response as a dictionary.\n    \"\"\"\n    token_url = \"https://accounts.spotify.com/api/token\"\n    auth_header = base64.b64encode(f\"{CLIENT_ID}:{CLIENT_SECRET}\".encode()).decode()\n    headers = {\n        \"Authorization\": f\"Basic {auth_header}\",\n        \"Content-Type\": \"application/x-www-form-urlencoded\",",
+        "detail": "scripts.auth.spotify_auth",
+        "documentation": {}
+    },
+    {
+        "label": "update_env_file",
+        "kind": 2,
+        "importPath": "scripts.auth.spotify_auth",
+        "description": "scripts.auth.spotify_auth",
+        "peekOfCode": "def update_env_file(access_token, refresh_token):\n    \"\"\"\n    Updates the .env file with the new access token and refresh token.\n    If the variables already exist, it will update them; otherwise, it will add them.\n    \"\"\"\n    lines = []\n    if os.path.exists(ENV_FILE):\n        with open(ENV_FILE, \"r\") as file:\n            lines = file.readlines()\n    def set_or_update(var_name, var_value):",
+        "detail": "scripts.auth.spotify_auth",
+        "documentation": {}
+    },
+    {
+        "label": "load_tokens_from_env",
+        "kind": 2,
+        "importPath": "scripts.auth.spotify_auth",
+        "description": "scripts.auth.spotify_auth",
+        "peekOfCode": "def load_tokens_from_env():\n    \"\"\"\n    Loads the access token and refresh token from the .env file and prints them.\n    \"\"\"\n    load_dotenv(override=True)\n    access_token = os.getenv(\"SPOTIFY_ACCESS_TOKEN\")\n    refresh_token = os.getenv(\"SPOTIFY_REFRESH_TOKEN\")\n    if access_token and refresh_token:\n        print(\"Tokens loaded from .env file:\")\n        print(f\"Access Token: {access_token}\")",
+        "detail": "scripts.auth.spotify_auth",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "scripts.auth.spotify_auth",
+        "description": "scripts.auth.spotify_auth",
+        "peekOfCode": "def main():\n    \"\"\"\n    Main function that orchestrates the Spotify authorization flow and token management.\n    \"\"\"\n    code = get_authorization_code()\n    token_info = exchange_code_for_token(code)\n    access_token = token_info.get(\"access_token\")\n    refresh_token = token_info.get(\"refresh_token\")\n    if not access_token:\n        print(\"Access token not found in the response.\")",
+        "detail": "scripts.auth.spotify_auth",
+        "documentation": {}
+    },
+    {
+        "label": "CLIENT_ID",
+        "kind": 5,
+        "importPath": "scripts.auth.spotify_auth",
+        "description": "scripts.auth.spotify_auth",
+        "peekOfCode": "CLIENT_ID = os.getenv(\"SPOTIFY_CLIENT_ID\")\nCLIENT_SECRET = os.getenv(\"SPOTIFY_CLIENT_SECRET\")\nREDIRECT_URI = os.getenv(\"SPOTIFY_REDIRECT_URI\")\nSCOPE = \"user-top-read\"\nENV_FILE = os.path.join(\n    os.path.dirname(os.path.dirname(os.path.dirname(__file__))), \".env\"\n)\ndef generate_auth_url():\n    \"\"\"\n    Generates the Spotify authorization URL with the required parameters.",
+        "detail": "scripts.auth.spotify_auth",
+        "documentation": {}
+    },
+    {
+        "label": "CLIENT_SECRET",
+        "kind": 5,
+        "importPath": "scripts.auth.spotify_auth",
+        "description": "scripts.auth.spotify_auth",
+        "peekOfCode": "CLIENT_SECRET = os.getenv(\"SPOTIFY_CLIENT_SECRET\")\nREDIRECT_URI = os.getenv(\"SPOTIFY_REDIRECT_URI\")\nSCOPE = \"user-top-read\"\nENV_FILE = os.path.join(\n    os.path.dirname(os.path.dirname(os.path.dirname(__file__))), \".env\"\n)\ndef generate_auth_url():\n    \"\"\"\n    Generates the Spotify authorization URL with the required parameters.\n    Returns the URL as a string.",
+        "detail": "scripts.auth.spotify_auth",
+        "documentation": {}
+    },
+    {
+        "label": "REDIRECT_URI",
+        "kind": 5,
+        "importPath": "scripts.auth.spotify_auth",
+        "description": "scripts.auth.spotify_auth",
+        "peekOfCode": "REDIRECT_URI = os.getenv(\"SPOTIFY_REDIRECT_URI\")\nSCOPE = \"user-top-read\"\nENV_FILE = os.path.join(\n    os.path.dirname(os.path.dirname(os.path.dirname(__file__))), \".env\"\n)\ndef generate_auth_url():\n    \"\"\"\n    Generates the Spotify authorization URL with the required parameters.\n    Returns the URL as a string.\n    \"\"\"",
+        "detail": "scripts.auth.spotify_auth",
+        "documentation": {}
+    },
+    {
+        "label": "SCOPE",
+        "kind": 5,
+        "importPath": "scripts.auth.spotify_auth",
+        "description": "scripts.auth.spotify_auth",
+        "peekOfCode": "SCOPE = \"user-top-read\"\nENV_FILE = os.path.join(\n    os.path.dirname(os.path.dirname(os.path.dirname(__file__))), \".env\"\n)\ndef generate_auth_url():\n    \"\"\"\n    Generates the Spotify authorization URL with the required parameters.\n    Returns the URL as a string.\n    \"\"\"\n    params = {",
+        "detail": "scripts.auth.spotify_auth",
+        "documentation": {}
+    },
+    {
+        "label": "ENV_FILE",
+        "kind": 5,
+        "importPath": "scripts.auth.spotify_auth",
+        "description": "scripts.auth.spotify_auth",
+        "peekOfCode": "ENV_FILE = os.path.join(\n    os.path.dirname(os.path.dirname(os.path.dirname(__file__))), \".env\"\n)\ndef generate_auth_url():\n    \"\"\"\n    Generates the Spotify authorization URL with the required parameters.\n    Returns the URL as a string.\n    \"\"\"\n    params = {\n        \"client_id\": CLIENT_ID,",
+        "detail": "scripts.auth.spotify_auth",
+        "documentation": {}
+    },
+    {
+        "label": "fetch_top_tracks",
+        "kind": 2,
+        "importPath": "scripts.ingestion.ingest_data",
+        "description": "scripts.ingestion.ingest_data",
+        "peekOfCode": "def fetch_top_tracks():\n    \"\"\"\n    Fetches the top 50 tracks of the user in the last 4 weeks,\n    retrieves information about each track and saves it to a CSV file.\n    \"\"\"\n    try:\n        # Coba ambil token dari Airflow Variables\n        try:\n            from airflow.models import Variable\n            ACCESS_TOKEN = Variable.get(\"SPOTIFY_ACCESS_TOKEN\")",
+        "detail": "scripts.ingestion.ingest_data",
+        "documentation": {}
+    },
+    {
+        "label": "remove_existing_files",
+        "kind": 2,
+        "importPath": "scripts.ingestion.ingest_data",
+        "description": "scripts.ingestion.ingest_data",
+        "peekOfCode": "def remove_existing_files(directory):\n    \"\"\"\n    Remove all files from the specified directory.\n    \"\"\"\n    for filename in os.listdir(directory):\n        file_path = os.path.join(directory, filename)\n        if os.path.isfile(file_path):\n            print(f\"Removing existing file: {file_path}\")\n            os.remove(file_path)",
+        "detail": "scripts.ingestion.ingest_data",
+        "documentation": {}
+    }
+]

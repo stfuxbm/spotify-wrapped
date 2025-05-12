@@ -1,0 +1,43 @@
+# File konfigurasi dan cache Python
+*.pyc
+__pycache__/
+*.pyo
+
+# File log Airflow
+logs/
+
+# File Docker
+.dockerenv
+.dockerignore
+.env*
+
+# File sistem
+.env.*
+*.db
+*.sqlite
+
+# File lainnya
+*.log
+*.lock
+*.pid
+coverage/
+venv/
+build/
+dist/
+downloads/
+ipynb_checkpoints/
+profiles/
+site/
+.sphinx/
+var/
+EGG-INFO/
+.installed.cfg
+versioneer.pypath
+pip-selfcheck.json
+
+# Airflow
+airflow.cfg
+
+# Cache tools
+.pytest_cache/
+.mypy_cache/
