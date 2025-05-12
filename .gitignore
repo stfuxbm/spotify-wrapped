@@ -9,10 +9,10 @@ logs/
 # File Docker
 .dockerenv
 .dockerignore
-.env*
+.env
+!.env.example
 
 # File sistem
-.env.*
 *.db
 *.sqlite
 
@@ -25,7 +25,7 @@ venv/
 build/
 dist/
 downloads/
-ipynb_checkpoints/
+ipynb_checkchecks/
 profiles/
 site/
 .sphinx/
@@ -37,7 +37,29 @@ pip-selfcheck.json
 
 # Airflow
 airflow.cfg
+airflow.db
+webserver_config.py
+unittests.cfg
 
 # Cache tools
 .pytest_cache/
 .mypy_cache/
+.coverage
+htmlcov/
+
+# Data files
+data/*.csv
+data/*.json
+data/*.parquet
+data/*.pickle
+!data/.gitkeep
+
+# IDE files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.spyderproject
+.spyproject
+.ropeproject
+.DS_Store
