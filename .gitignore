@@ -2,20 +2,16 @@
 *.pyc
 __pycache__/
 *.pyo
-
 # File log Airflow
 logs/
-
 # File Docker
 .dockerenv
 .dockerignore
 .env
 !.env.example
-
 # File sistem
 *.db
 *.sqlite
-
 # File lainnya
 *.log
 *.lock
@@ -25,7 +21,7 @@ venv/
 build/
 dist/
 downloads/
-ipynb_checkchecks/
+ipynb_checkpoints/
 profiles/
 site/
 .sphinx/
@@ -34,26 +30,22 @@ EGG-INFO/
 .installed.cfg
 versioneer.pypath
 pip-selfcheck.json
-
 # Airflow
 airflow.cfg
 airflow.db
 webserver_config.py
 unittests.cfg
-
 # Cache tools
 .pytest_cache/
 .mypy_cache/
 .coverage
 htmlcov/
-
 # Data files
 data/*.csv
 data/*.json
 data/*.parquet
 data/*.pickle
 !data/.gitkeep
-
 # IDE files
 .idea/
 .vscode/
